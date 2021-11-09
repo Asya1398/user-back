@@ -1,4 +1,3 @@
-// eslint-disable-next-line react/jsx-filename-extension
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
@@ -6,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
+     * The `bhr gtr/index` file will call this method automatically.
      */
     static associate(models) {
       // define association here
@@ -15,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
   Post.init(
     {
       title: {
+        DataTypes: DataTypes.STRING,
         allowNull: false,
-        type: DataTypes.STRING,
       },
       description: {
+        DataTypes: DataTypes.STRING,
         allowNull: false,
-        type: DataTypes.STRING,
       },
     },
     {
@@ -28,5 +27,12 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Post',
     }
   );
+  Post.associate = (models) => {
+    Post.hasMany(models.User, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
   return Post;
 };
