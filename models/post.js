@@ -1,7 +1,6 @@
+// eslint-disable-next-line react/jsx-filename-extension
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     /**
@@ -12,19 +11,22 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
-  Post.init({
-    title: {
-      allowNull: false,
-      type: DataTypes.STRING
+  }
+  Post.init(
+    {
+      title: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      description: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
     },
-    description:{
-      allowNull: false,
-      type: DataTypes.STRING
-    },
-  }, {
-    sequelize,
-    modelName: 'Post',
-  });
+    {
+      sequelize,
+      modelName: 'Post',
+    }
+  );
   return Post;
 };
