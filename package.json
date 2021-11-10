@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon --inspect index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db-migrate": "npx sequelize-cli db:migrate",
     "db-migrate-undo": "npx sequelize-cli db:migrate:undo"
@@ -20,6 +20,8 @@
   "homepage": "https://github.com/Asya1398/user-back#readme",
   "description": "",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -28,7 +30,8 @@
     "nodemon": "^2.0.14",
     "prettier": "^2.4.1",
     "sequelize": "^6.9.0",
-    "sequelize-cli": "^6.3.0"
+    "sequelize-cli": "^6.3.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
