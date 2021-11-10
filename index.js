@@ -1,8 +1,17 @@
-// eslint-disable-next-line react/jsx-filename-extension
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-// const db=require('./bhr gtr')
-app.listen(8000, () => {
+app.use(express.json());
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+//User Routers
+const userRouter = require('./routes/user');
+app.use(userRouter);
+
+app.listen(8000, (err) => {
+  if (err) return console.log(err);
   console.log('Server running on port 8000');
 });
