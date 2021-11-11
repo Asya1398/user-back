@@ -8,8 +8,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //User Routers
-const userRouter = require('./routes');
-app.use('/api', userRouter);
+const userRouter = require('./routes/user');
+app.use(userRouter);
 
 app.listen(8000, (err) => {
   if (err) return console.log(err);
