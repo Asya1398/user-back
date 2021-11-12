@@ -8,5 +8,6 @@ const posts = require('../controllers/posts');
 router.post('/register', auth.register);
 router.post('/login', auth.logIn);
 router.get('/my-posts', verifyAuth, posts.getPosts);
+router.get('/create', verifyAuth, posts.createPosts);
 
 module.exports = router;
