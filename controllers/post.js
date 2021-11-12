@@ -1,4 +1,4 @@
-const { Post } = require('../models');
+const { Post, User } = require('../models');
 //Create
 const createPosts = async (req, res) => {
   try {
@@ -65,9 +65,18 @@ const deletePosts = async (req, res) => {
   }
 };
 
+const Home = async (req, res) => {
+  try {
+    const listOfUsers = await Post.findAll();
+    res.json(listOfUsers);
+  } catch (e) {
+    return res.status(500).json({ message: e });
+  }
+};
 module.exports = {
   getPosts,
   createPosts,
   updatePosts,
   deletePosts,
+  Home,
 };
