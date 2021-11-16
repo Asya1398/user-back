@@ -51,9 +51,13 @@ const register = async (req, res) => {
       email,
       password: hashedPassword,
     });
+    const token = jwt.sign({ ...user.dataValues }, 'shhhhh', {
+      expiresIn: '2h',
+    });
     return res.status(201).json({
       message: 'User successfully created !',
       user,
+      token: token,
     });
   } catch (err) {
     console.log(err.stack);
