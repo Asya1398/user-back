@@ -1,6 +1,7 @@
 const { Post, User } = require('../models');
+
 //Create
-const createPosts = async (req, res) => {
+const createPost = async (req, res) => {
   try {
     const { title, description } = req.body;
     console.log(req.body, req.user.id);
@@ -18,26 +19,20 @@ const createPosts = async (req, res) => {
   }
 };
 
-//Read
+// Get All posts
 const getPosts = async (req, res) => {
   try {
-    const posts = await Post.findAll({
-      where: {
-        userId: req.user.id,
-      },
+    const posts = await Post.findAll();
+    return res.json({
+      posts,
     });
-    if (posts) {
-      return res.json({
-        posts,
-      });
-    }
   } catch (err) {
-    return res.status(404).json({ message: 'post not found!' });
+    return res.status(500).json({ message: 'posts not found!' });
   }
 };
 
 //Update
-const updatePosts = async (req, res) => {
+const updatePost = async (req, res) => {
   try {
     await Post.update(
       {
@@ -65,18 +60,24 @@ const deletePosts = async (req, res) => {
   }
 };
 
-const Home = async (req, res) => {
+const getUserPosts = async (req, res) => {
   try {
-    const listOfUsers = await Post.findAll();
-    res.json(listOfUsers);
+    const posts = await Post.findAll({
+      where: {
+        userId: req.user.id,
+      },
+    });
+    console.log('posts', posts);
+    res.json({ posts });
   } catch (e) {
     return res.status(500).json({ message: 'posts not found!' });
   }
 };
+
 module.exports = {
   getPosts,
-  createPosts,
-  updatePosts,
+  createPost,
+  updatePost,
   deletePosts,
-  Home,
+  getUserPosts,
 };
