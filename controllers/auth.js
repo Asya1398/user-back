@@ -14,9 +14,7 @@ const register = async (req, res) => {
       },
     });
     if (user1) {
-      throw {
-        message: 'Email already exist !',
-      };
+      return res.status(400).json({ message: ' Email already exist !' });
     }
 
     //password hashing
@@ -74,7 +72,7 @@ const logIn = async (req, res) => {
       },
     });
     if (!user) {
-      return res.status(400).json({ message: 'Not found!' });
+      return res.status(400).json({ message: ' User not found!' });
     } else {
       const hashedPassword = user.password;
       const validPassword = await bcrypt.compare(password, hashedPassword);
