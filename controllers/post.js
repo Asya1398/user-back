@@ -10,27 +10,38 @@ const createPost = async (req, res) => {
       description,
       userId: req.user.id,
     });
-    return res.status(201).json({
+    return res.status(200).json({
       message: ' Post successfully created ! ',
       post,
     });
   } catch (err) {
+    console.log(111, err);
     return res.status(500).json({ message: 'can`t create post' });
   }
 };
 
 // Get All posts
-const getPosts = async (req, res) => {
+const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.findAll();
     return res.json({
-      posts,
+      posts: posts,
     });
   } catch (err) {
-    return res.status(500).json({ message: 'posts not found!' });
+    return res.status(500).json({ message: 'posts and users not found!' });
   }
 };
-
+//Get All users
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.findAll();
+    return res.json({
+      users: users,
+    });
+  } catch (err) {
+    return res.status(500).json({ message: 'posts and users not found!' });
+  }
+};
 //Update
 const updatePost = async (req, res) => {
   try {
@@ -51,7 +62,7 @@ const updatePost = async (req, res) => {
 };
 
 //Delete
-const deletePosts = async (req, res) => {
+const deletePost = async (req, res) => {
   try {
     const posts = await Post.destroy({ where: { id: req.params.id } });
     res.status(200).json({ posts });
@@ -75,9 +86,10 @@ const getUserPosts = async (req, res) => {
 };
 
 module.exports = {
-  getPosts,
+  getAllPosts,
+  getAllUsers,
   createPost,
   updatePost,
-  deletePosts,
+  deletePost,
   getUserPosts,
 };
