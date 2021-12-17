@@ -31,6 +31,7 @@ const getAllPosts = async (req, res) => {
     return res.status(500).json({ message: 'posts and users not found!' });
   }
 };
+
 //Get All users
 const getAllUsers = async (req, res) => {
   try {
@@ -42,7 +43,21 @@ const getAllUsers = async (req, res) => {
     return res.status(500).json({ message: 'posts and users not found!' });
   }
 };
-//Update
+
+//Get post for updating
+const getPost = async (req, res) => {
+  try {
+    const post = await Post.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.json({ post });
+  } catch (err) {
+    return res.status(500).json({ message: 'can`t get post' });
+  }
+};
+//Update post
 const updatePost = async (req, res) => {
   try {
     await Post.update(
@@ -51,17 +66,17 @@ const updatePost = async (req, res) => {
         description: req.body.description,
       },
       {
-        where: { id: req.body.id },
+        where: { id: req.params.id },
       }
     ).then(() => {
-      res.send('user updated');
+      res.send('post updated');
     });
   } catch (err) {
     return res.status(500).json({ message: 'can`t update post' });
   }
 };
 
-//Delete
+//Delete Post
 const deletePost = async (req, res) => {
   try {
     const posts = await Post.destroy({ where: { id: req.params.id } });
@@ -71,6 +86,7 @@ const deletePost = async (req, res) => {
   }
 };
 
+//Get User Post
 const getUserPosts = async (req, res) => {
   try {
     const posts = await Post.findAll({
@@ -78,7 +94,6 @@ const getUserPosts = async (req, res) => {
         userId: req.user.id,
       },
     });
-    console.log('posts', posts);
     res.json({ posts });
   } catch (e) {
     return res.status(500).json({ message: 'posts not found!' });
@@ -92,4 +107,5 @@ module.exports = {
   updatePost,
   deletePost,
   getUserPosts,
+  getPost,
 };
