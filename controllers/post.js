@@ -57,24 +57,6 @@ const getPost = async (req, res) => {
     return res.status(500).json({ message: 'can`t get post' });
   }
 };
-//Update post
-const updatePost = async (req, res) => {
-  try {
-    await Post.update(
-      {
-        title: req.body.title,
-        description: req.body.description,
-      },
-      {
-        where: { id: req.params.id },
-      }
-    ).then(() => {
-      res.send('post updated');
-    });
-  } catch (err) {
-    return res.status(500).json({ message: 'can`t update post' });
-  }
-};
 
 //Delete Post
 const deletePost = async (req, res) => {
@@ -97,6 +79,24 @@ const getUserPosts = async (req, res) => {
     res.json({ posts });
   } catch (e) {
     return res.status(500).json({ message: 'posts not found!' });
+  }
+};
+//Update post
+const updatePost = async (req, res) => {
+  try {
+    await Post.update(
+      {
+        title: req.body.title,
+        description: req.body.description,
+      },
+      {
+        where: { id: req.params.id },
+      }
+    ).then(() => {
+      res.send('post updated');
+    });
+  } catch (err) {
+    return res.status(500).json({ message: 'can`t update post' });
   }
 };
 
