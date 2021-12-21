@@ -1,15 +1,16 @@
 'use strict';
 const { Model } = require('sequelize');
+const { post } = require('../controllers');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // const { Post } = models;
-      // User.hasMany(Post, {
-      //   foreignKey: 'user_id',
-      //   onDelete: 'cascade',
-      //   onUpdate: 'cascade',
-      // });
+      const { Post } = models;
+      User.hasMany(Post, {
+        foreignKey: 'userId',
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
+      });
     }
   }
 
@@ -37,6 +38,11 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'User',
     }
   );
+  // User.hasMany(post, {
+  //   foreignKey: 'userId',
+  //   onDelete: 'CASCADE',
+  //   onUpdate: 'CASCADE',
+  // });
 
   return User;
 };

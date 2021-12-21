@@ -71,12 +71,27 @@ const deletePost = async (req, res) => {
 //Get User Post
 const getUserPosts = async (req, res) => {
   try {
-    const posts = await Post.findAll({
+    // const posts = await Post.findAll({
+    //   where: {
+    //     userId: req.user.id,
+    //   },
+    // });
+    // res.json({ posts });
+
+    const userPosts = await User.findOne({
       where: {
-        userId: req.user.id,
+        id: 1,
       },
+      include: [
+        {
+          model: Post,
+          // through: {
+          //   // where: { completed: true },
+          // },
+        },
+      ],
     });
-    res.json({ posts });
+    res.json(userPosts.Posts);
   } catch (e) {
     return res.status(500).json({ message: 'posts not found!' });
   }
